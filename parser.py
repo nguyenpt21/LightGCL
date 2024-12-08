@@ -17,7 +17,7 @@ def parse_args():
     parser.add_argument('--temp', default=0.2, type=float, help='temperature in cl loss')
     parser.add_argument('--lambda2', default=1e-7, type=float, help='l2 reg weight')
     parser.add_argument('--cuda', default='0', type=str, help='the gpu to use')
-    parser.add_argument('--saved_model_path', nargs='?', default='saved_model/',
+    parser.add_argument('--saved_model_path', nargs='?', default='saved_model',
                         help='Path of trained model.')
     parser.add_argument('--use_pretrain', type=int, default=0,
                         help='0: No pretrain, 1: Pretrain with stored model.')

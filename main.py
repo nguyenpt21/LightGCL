@@ -191,7 +191,11 @@ for epoch in range(1, epoch_no + 1):
         if val_score > best_val_score:
             best_val_score = val_score
             
-            torch.save(model.state_dict(), os.path.join(saved_model_path, 'best_model.pth'))
+            torch.save({
+                'model_state_dict': model.state_dict(),
+                'E_u': model.E_u,
+                'E_i': model.E_i,
+            }, saved_model_path + '/model_with_embeddings.pth')
             logging.info('Save model on epoch {:04d}!'.format(epoch))
 
         best_recall, should_stop = early_stopping(recall_10_y, args.stopping_steps)
@@ -200,7 +204,8 @@ for epoch in range(1, epoch_no + 1):
             break
 
 # final test
-model.load_state_dict(torch.load(args.saved_model_path + 'best_model.pth'))
+checkpoint = torch.load(saved_model_path + '/model_with_embeddings.pth')
+model.load_state_dict(checkpoint['model_state_dict'])
 
 test_uids = np.array([i for i in range(adj_norm.shape[0])])
 batch_no = int(np.ceil(len(test_uids)/batch_user))
@@ -255,7 +260,7 @@ metric = pd.DataFrame({
     'ndcg@10':ndcg_10_y
 })
 current_t = time.gmtime()
-metric.to_csv(args.log_path + '/result_'+args.data+'_'+time.strftime('%Y-%m-%d-%H',current_t)+'.csv')
+metric.to_csv(args.log_path + 'result_' + args.data_name + '_' + time.strftime('%Y-%m-%d-%H',current_t)+'.csv')
 
-torch.save(model.state_dict(), args.saved_model_path + 'saved_model_'+args.data+'_'+time.strftime('%Y-%m-%d-%H',current_t)+'.pth')
-torch.save(optimizer.state_dict(), args.saved_model_path +'saved_optim_'+args.data+'_'+time.strftime('%Y-%m-%d-%H',current_t)+'.pth')
+torch.save(model.state_dict(), args.saved_model_path + 'saved_model_'+args.data_name+'_'+time.strftime('%Y-%m-%d-%H',current_t)+'.pth')
+torch.save(optimizer.state_dict(), args.saved_model_path +'saved_optim_'+args.data_name+'_'+time.strftime('%Y-%m-%d-%H',current_t)+'.pth')
