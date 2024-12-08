@@ -97,6 +97,9 @@ recall_5_y = []
 ndcg_5_y = []
 recall_10_y = []
 ndcg_10_y = []
+
+best_val_score = 0
+
 for epoch in range(1, epoch_no + 1):
     epoch_loss = 0
     epoch_loss_r = 0
