@@ -180,9 +180,14 @@ for epoch in range(1, epoch_no + 1):
 
         val_score = all_recall_10/batch_no
         if val_score > best_val_score:
-          best_val_score = val_score
-          torch.save(model.state_dict(), args.saved_model_path + 'best_model.pth')
-          logging.info('Save model on epoch {:04d}!'.format(epoch))
+            best_val_score = val_score
+            torch.save(model.state_dict(), args.saved_model_path + 'best_model.pth')
+            logging.info('Save model on epoch {:04d}!'.format(epoch))
+
+        best_recall, should_stop = early_stopping(recall_10_y, args.stopping_steps)
+
+        if should_stop:
+            break
 
 # final test
 model.load_state_dict(torch.load(args.saved_model_path))

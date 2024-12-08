@@ -87,6 +87,16 @@ def process_labels(path):
 
   return labels
 
+
+def early_stopping(recall_list, stopping_steps):
+    best_recall = max(recall_list)
+    best_step = recall_list.index(best_recall)
+    if len(recall_list) - best_step - 1 >= stopping_steps:
+        should_stop = True
+    else:
+        should_stop = False
+    return best_recall, should_stop
+
 def create_log_id(dir_path):
     log_count = 0
     file_path = os.path.join(dir_path, 'log{:d}.log'.format(log_count))
