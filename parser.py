@@ -19,6 +19,8 @@ def parse_args():
     parser.add_argument('--cuda', default='0', type=str, help='the gpu to use')
     parser.add_argument('--saved_model_path', nargs='?', default='saved_model/',
                         help='Path of trained model.')
+    parser.add_argument('--use_pretrain', type=int, default=0,
+                        help='0: No pretrain, 1: Pretrain with stored model.')
     parser.add_argument('--data_dir', nargs='?', default='data/',
                         help='Input data path.')
     parser.add_argument('--stopping_steps', type=int, default=10,
