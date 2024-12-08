@@ -31,7 +31,7 @@ logging_config(folder=args.log_path, name='log{:d}'.format(log_save_id), no_cons
 logging.info(args)
 # load data
 
-path = args.data_dir + args.data_name + '/'
+path = args.data_dir + '/' + args.data_name + '/'
 f = open(path+'trnMat.pkl','rb')
 train = pickle.load(f)
 train_csr = (train!=0).astype(np.float32)
@@ -138,7 +138,7 @@ for epoch in range(1, epoch_no + 1):
     logging.info('Epoch: {}, Loss: {}, Loss_r: {}, Loss_s: {}'.format(epoch, epoch_loss, epoch_loss_r, epoch_loss_s))
 
 
-    if (epoch % 5 == 0):  # test every 5 epochs
+    if (epoch % 1 == 0):  # test every 5 epochs
         test_uids = np.array([i for i in range(adj_norm.shape[0])])
         batch_no = int(np.ceil(len(test_uids)/batch_user))
 

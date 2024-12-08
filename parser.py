@@ -24,7 +24,7 @@ def parse_args():
     parser.add_argument('--data_dir', nargs='?', default='data/',
                         help='Input data path.')
     parser.add_argument('--log_path', nargs='?', default='log/',
-                        help='Input data path.')
+                        help='Log path.')
     parser.add_argument('--stopping_steps', type=int, default=10,
                         help='Number of epoch for early stopping')
     return parser.parse_args()
