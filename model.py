@@ -66,8 +66,8 @@ class LightGCL(nn.Module):
                 items_to_predict = np.append(sampled_negatives, positive_item)
 
            
-                user_embedding = self.E_u[uid].to(torch.device(device))
-                item_embeddings = self.E_i[items_to_predict].to(torch.device(device)) 
+                user_embedding = self.E_u[uid].to(torch.device(self.device))
+                item_embeddings = self.E_i[items_to_predict].to(torch.device(self.device)) 
         
             
                 preds = user_embedding @ item_embeddings.T  
