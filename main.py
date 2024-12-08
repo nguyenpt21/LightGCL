@@ -113,12 +113,12 @@ for epoch in range(1, epoch_no + 1):
         optimizer.zero_grad()
         loss, loss_r, loss_s= model(uids, iids, pos, neg)
 
-        print(uids, iids, pos, neg)
+        # print(uids, iids, pos, neg)
         loss.backward()
 
 
         optimizer.step()
-        #print('batch',batch)
+        # print('batch',batch)
 
         epoch_loss += loss.cpu().item()
         epoch_loss_r += loss_r.cpu().item()
