@@ -21,9 +21,9 @@ def parse_args():
                         help='Path of trained model.')
     parser.add_argument('--use_pretrain', type=int, default=0,
                         help='0: No pretrain, 1: Pretrain with stored model.')
-    parser.add_argument('--data_dir', nargs='?', default='data/',
+    parser.add_argument('--data_dir', nargs='?', default='data',
                         help='Input data path.')
-    parser.add_argument('--log_path', nargs='?', default='log/',
+    parser.add_argument('--log_path', nargs='?', default='log',
                         help='Log path.')
     parser.add_argument('--stopping_steps', type=int, default=10,
                         help='Number of epoch for early stopping')

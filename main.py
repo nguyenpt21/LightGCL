@@ -26,6 +26,12 @@ lr = args.lr
 decay = args.decay
 svd_q = args.q
 
+saved_model_path = args.saved_model_path
+log_path = args.log_path
+
+os.makedirs(saved_model_path, exist_ok=True)
+os.makedirs(log_path, exist_ok=True)
+
 log_save_id = create_log_id(args.log_path)
 logging_config(folder=args.log_path, name='log{:d}'.format(log_save_id), no_console=False)
 logging.info(args)
@@ -184,7 +190,8 @@ for epoch in range(1, epoch_no + 1):
         val_score = all_recall_10/batch_no
         if val_score > best_val_score:
             best_val_score = val_score
-            torch.save(model.state_dict(), args.saved_model_path + 'best_model.pth')
+            
+            torch.save(model.state_dict(), os.path.join(saved_model_path, 'best_model.pth'))
             logging.info('Save model on epoch {:04d}!'.format(epoch))
 
         best_recall, should_stop = early_stopping(recall_10_y, args.stopping_steps)
@@ -193,7 +200,7 @@ for epoch in range(1, epoch_no + 1):
             break
 
 # final test
-model.load_state_dict(torch.load(args.saved_model_path))
+model.load_state_dict(torch.load(args.saved_model_path + 'best_model.pth'))
 
 test_uids = np.array([i for i in range(adj_norm.shape[0])])
 batch_no = int(np.ceil(len(test_uids)/batch_user))
